@@ -7,4 +7,5 @@ import (
 func main() {
 	mylib.Foundation()
 	mylib.AnimalCry()
+	mylib.SliceExample()
 }
