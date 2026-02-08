@@ -1,0 +1,132 @@
+run:
+  # タイムアウト設定
+  timeout: 5m
+  
+  # テストファイルを除外
+  tests: false
+  
+  # Go バージョン
+  go: '1.23'
+
+# 出力設定
+output:
+  # 出力フォーマット: colored-line-number|line-number|json|tab|checkstyle|code-climate|html|junit-xml|github-actions
+  formats:
+    - format: colored-line-number
+  
+  # 問題を表示する最大数（0で無制限）
+  print-issued-lines: true
+  print-linter-name: true
+
+# 全リンターの設定
+linters:
+  # すべてのリンターを無効化してから、有効にするものを選択
+  disable-all: true
+  enable:
+    # デフォルトで有効にする基本的なリンター
+    - errcheck       # エラーチェック漏れを検出
+    - gosimple       # コードの簡略化を提案
+    - govet          # go vet の問題を検出
+    - ineffassign    # 無効な代入を検出
+    - staticcheck    # 静的解析
+    - unused         # 未使用のコードを検出
+    
+    # コード品質向上のためのリンター
+    - gofmt          # フォーマットチェック
+    - goimports      # import の整理
+    - misspell       # スペルミスを検出
+    - revive         # golint の代替
+    - stylecheck     # スタイルのチェック
+    
+    # バグ検出
+    - bodyclose      # HTTP レスポンスの body close 漏れ
+    - gosec          # セキュリティ問題を検出
+    - nilerr         # nil エラーの不適切な処理
+    
+    # パフォーマンス
+    - prealloc       # スライスの事前割り当て
+    
+    # コードの複雑さ
+    - gocyclo        # 循環的複雑度
+    - gocognit       # 認知的複雑度
+
+linters-settings:
+  # errcheck の設定
+  errcheck:
+    # エラーチェックを除外する関数
+    exclude-functions:
+      - (io.Closer).Close
+      - (io.ReadCloser).Close
+  
+  # gocyclo の設定（循環的複雑度）
+  gocyclo:
+    # 最大複雑度（デフォルト: 30）
+    min-complexity: 15
+  
+  # gocognit の設定（認知的複雑度）
+  gocognit:
+    # 最大複雑度（デフォルト: 30）
+    min-complexity: 20
+  
+  # govet の設定
+  govet:
+    # すべてのチェックを有効化
+    check-shadowing: true
+    enable-all: true
+  
+  # revive の設定
+  revive:
+    # ルールの重要度（warning または error）
+    severity: warning
+    confidence: 0.8
+    rules:
+      - name: blank-imports
+      - name: context-as-argument
+      - name: dot-imports
+      - name: error-return
+      - name: error-strings
+      - name: error-naming
+      - name: exported
+      - name: if-return
+      - name: increment-decrement
+      - name: var-naming
+      - name: package-comments
+      - name: range
+      - name: receiver-naming
+      - name: indent-error-flow
+      - name: superfluous-else
+      - name: unreachable-code
+  
+  # staticcheck の設定
+  staticcheck:
+    checks: ["all"]
+
+# Issues の設定
+issues:
+  # 同じ問題の最大表示数（0で無制限）
+  max-same-issues: 0
+  
+  # 新しいコードのみチェック（falseですべてチェック）
+  new: false
+  
+  # 除外するパス
+  exclude-dirs:
+    - vendor
+  
+  # 除外しないデフォルトルール
+  exclude-use-default: false
+  
+  # 特定のテキストを含む問題を除外
+  exclude:
+    # テストコードでの err チェック省略を許可
+    - 'Error return value of .((os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*print(f|ln)?|os\.(Un)?Setenv). is not checked'
+    
+  # 特定のリンターを特定のパスで無効化
+  exclude-rules:
+    # テストファイルでは一部のリンターを無効化
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - gosec
+        - gocognit
