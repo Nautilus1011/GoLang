@@ -23,9 +23,15 @@ jobs:
       - name: Download dependencies
         run: go mod download
 
+      # 1. テスト実行
       - name: Run tests
         run: go test -v ./...
 
+      # 2. ビルド確認
+      - name: Build
+        run: go build -v ./...
+
+      # 3. フォーマットチェック
       - name: Check formatting
         run: |
           if [ "$(gofmt -s -l . | wc -l)" -gt 0 ]; then
@@ -34,5 +40,14 @@ jobs:
             exit 1
           fi
 
+      # 4. 静的解析
       - name: Run go vet
         run: go vet ./...
+
+      # 5. Lint（オプション: golangci-lintがインストールされている場合）
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: latest
+          args: --timeout=3m
+        continue-on-error: true  # 学習用なので失敗してもCIは通す
