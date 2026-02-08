@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Go 公式ドキュメント
+    url: https://go.dev/doc/
+    about: Go言語の公式ドキュメント
+  - name: A Tour of Go
+    url: https://go.dev/tour/
+    about: Go言語の公式チュートリアル

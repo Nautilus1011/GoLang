@@ -1,0 +1,29 @@
+run:
+  timeout: 5m
+  tests: false
+
+linters:
+  disable-all: true
+  enable:
+    # 基本的なチェック
+    - errcheck      # エラーチェック漏れ
+    - gosimple      # コードの簡略化
+    - govet         # 静的解析
+    - ineffassign   # 無効な代入
+    - staticcheck   # 静的解析
+    - unused        # 未使用のコード
+    
+    # フォーマット
+    - gofmt         # フォーマットチェック
+    - goimports     # import の整理
+
+issues:
+  max-same-issues: 0
+  exclude-dirs:
+    - vendor
+  
+  # テストファイルでは一部のチェックを緩和
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
