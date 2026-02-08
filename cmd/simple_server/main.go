@@ -1,9 +1,9 @@
 package main
 
 import (
-"fmt"
-"log"
-"net/http"
+	"fmt"
+	"log"
+	"net/http"
 )
 
 // 最もシンプルなHTTPサーバーの例
@@ -21,7 +21,7 @@ func main() {
 	// サーバーを起動
 	// ポート8080で待ち受ける
 	log.Println("サーバーを起動しています: http://localhost:8080")
-	
+
 	// ListenAndServe はブロッキング関数で、エラーが発生するまで実行し続けます
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

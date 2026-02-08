@@ -19,7 +19,7 @@ func TestAdd(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			result := Add(tt.x, tt.y)
 			if result != tt.expected {
-				t.Errorf("Add(%d, %d) = %d; want %d",  tt.x, tt.y, result, tt.expected)
+				t.Errorf("Add(%d, %d) = %d; want %d", tt.x, tt.y, result, tt.expected)
 			}
 		})
 	}
