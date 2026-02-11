@@ -12,11 +12,6 @@ Goプログラミング言語の学習用リポジトリです。基礎から応
 │   └── query_params/       # 03. クエリパラメータを扱うサーバー
 ├── http_server/            # 高度なHTTPサーバー（中級者向け）
 ├── mylib/                  # ライブラリパッケージ
-│   ├── animal.go           # インターフェースの例
-│   ├── animal_test.go      # テスト
-│   ├── foundation.go       # 基礎関数
-│   ├── foundation_test.go  # テスト
-│   └── slice.go            # スライス操作
 ├── .github/workflows/      # CI/CD設定
 │   └── ci.yml              # GitHub Actions
 ├── .golangci.yml           # Linter設定
